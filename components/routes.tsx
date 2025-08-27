@@ -5,17 +5,52 @@ import {
   HiOutlineCpuChip,
   HiOutlineUsers,
   HiOutlineUser,
-  HiOutlineCog8Tooth,
+  HiOutlineCog,
   HiOutlineCreditCard,
   HiOutlineDocumentText,
-  HiOutlineCurrencyDollar
+  HiOutlineCurrencyDollar,
+  HiOutlineChartBar,
+  HiOutlineEye,
+  HiOutlineHeart,
+  HiOutlineTrophy
 } from 'react-icons/hi2';
+import { HiOutlineDocument } from 'react-icons/hi';
 
 export const routes: IRoute[] = [
   {
-    name: 'Main Dashboard',
-    path: '/dashboard/main',
-    icon: <HiOutlineHome className="-mt-[7px] h-4 w-4 stroke-2 text-inherit" />,
+    name: 'Sponsorship Overview',
+    path: '/dashboard/sponsorship/overview',
+    icon: <HiOutlineChartBar className="-mt-[7px] h-4 w-4 stroke-2 text-inherit" />,
+    collapse: false
+  },
+  {
+    name: 'Computer Vision',
+    path: '/dashboard/sponsorship/computer-vision',
+    icon: <HiOutlineEye className="-mt-[7px] h-4 w-4 stroke-2 text-inherit" />,
+    collapse: false
+  },
+  {
+    name: 'Social Sentiment',
+    path: '/dashboard/sponsorship/social-sentiment',
+    icon: <HiOutlineHeart className="-mt-[7px] h-4 w-4 stroke-2 text-inherit" />,
+    collapse: false
+  },
+  {
+    name: 'ROI Analytics',
+    path: '/dashboard/sponsorship/roi-analytics',
+    icon: <HiOutlineCurrencyDollar className="-mt-[7px] h-4 w-4 stroke-2 text-inherit" />,
+    collapse: false
+  },
+  {
+    name: 'Race Performance',
+    path: '/dashboard/sponsorship/race-performance',
+    icon: <HiOutlineTrophy className="-mt-[7px] h-4 w-4 stroke-2 text-inherit" />,
+    collapse: false
+  },
+  {
+    name: 'Sponsor Reports',
+    path: '/dashboard/sponsorship/reports',
+    icon: <HiOutlineDocument className="-mt-[7px] h-4 w-4 stroke-2 text-inherit" />,
     collapse: false
   },
   {
@@ -24,65 +59,22 @@ export const routes: IRoute[] = [
     icon: (
       <HiOutlineCpuChip className="-mt-[7px] h-4 w-4 stroke-2 text-inherit" />
     ),
-    collapse: false
+    collapse: false,
+    disabled: true
   },
   {
     name: 'Profile Settings',
     path: '/dashboard/settings',
     icon: (
-      <HiOutlineCog8Tooth className="-mt-[7px] h-4 w-4 stroke-2 text-inherit" />
-    ),
-    collapse: false
-  },
-  {
-    name: 'AI Generator',
-    path: '/dashboard/ai-generator',
-    icon: (
-      <HiOutlineDocumentText className="-mt-[7px] h-4 w-4 stroke-2 text-inherit" />
+      <HiOutlineCog className="-mt-[7px] h-4 w-4 stroke-2 text-inherit" />
     ),
     collapse: false,
     disabled: true
   },
   {
-    name: 'AI Assistant',
-    path: '/dashboard/ai-assistant',
-    icon: <HiOutlineUser className="-mt-[7px] h-4 w-4 stroke-2 text-inherit" />,
-    collapse: false,
-    disabled: true
-  },
-  {
-    name: 'Users List',
-    path: '/dashboard/users-list',
-    icon: (
-      <HiOutlineUsers className="-mt-[7px] h-4 w-4 stroke-2 text-inherit" />
-    ),
-    collapse: false,
-    disabled: true
-  },
-  {
-    name: 'Subscription',
-    path: '/dashboard/subscription',
-    icon: (
-      <HiOutlineCreditCard className="-mt-[7px] h-4 w-4 stroke-2 text-inherit" />
-    ),
-    collapse: false,
-    disabled: true
-  },
-  {
-    name: 'Landing Page',
-    path: '/home',
-    icon: (
-      <HiOutlineDocumentText className="-mt-[7px] h-4 w-4 stroke-2 text-inherit" />
-    ),
-    collapse: false,
-    disabled: true
-  },
-  {
-    name: 'Pricing Page',
-    path: '/pricing',
-    icon: (
-      <HiOutlineCurrencyDollar className="-mt-[7px] h-4 w-4 stroke-2 text-inherit" />
-    ),
+    name: 'Main Dashboard',
+    path: '/dashboard/main',
+    icon: <HiOutlineHome className="-mt-[7px] h-4 w-4 stroke-2 text-inherit" />,
     collapse: false,
     disabled: true
   }

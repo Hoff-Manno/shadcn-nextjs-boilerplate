@@ -1,0 +1,325 @@
+/* ASD Motorsports Racing Theme */
+
+/* CSS Custom Properties for Racing Theme */
+:root {
+  --asd-primary: #DC2626; /* Racing red */
+  --asd-secondary: #1F2937; /* Carbon black */
+  --asd-accent: #F59E0B; /* Racing yellow */
+  --asd-success: #10B981; /* Performance green */
+  --asd-warning: #F59E0B; /* Caution yellow */
+  --asd-error: #EF4444; /* Alert red */
+  --asd-background: #F9FAFB; /* Light background */
+  --asd-surface: #FFFFFF; /* Card surfaces */
+  --asd-text-primary: #111827; /* Primary text */
+  --asd-text-secondary: #6B7280; /* Secondary text */
+}
+
+/* Dark mode variables */
+.dark {
+  --asd-background: #0F172A;
+  --asd-surface: #1E293B;
+  --asd-text-primary: #F8FAFC;
+  --asd-text-secondary: #94A3B8;
+}
+
+/* Racing-themed utility classes */
+.racing-gradient {
+  background: linear-gradient(135deg, var(--asd-primary) 0%, var(--asd-accent) 100%);
+}
+
+.performance-gradient {
+  background: linear-gradient(135deg, var(--asd-success) 0%, var(--asd-accent) 100%);
+}
+
+.carbon-gradient {
+  background: linear-gradient(135deg, var(--asd-secondary) 0%, #374151 100%);
+}
+
+/* Racing-themed animations */
+@keyframes racing-pulse {
+  0%, 100% {
+    transform: scale(1);
+    background-color: var(--asd-primary);
+  }
+  50% {
+    transform: scale(1.05);
+    background-color: var(--asd-error);
+  }
+}
+
+@keyframes speed-lines {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes checkered-flag {
+  0%, 100% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 20px 20px;
+  }
+}
+
+.racing-pulse {
+  animation: racing-pulse 1.5s ease-in-out infinite;
+}
+
+.speed-lines {
+  animation: speed-lines 2s linear infinite;
+}
+
+.checkered-pattern {
+  background-image: 
+    linear-gradient(45deg, #000 25%, transparent 25%), 
+    linear-gradient(-45deg, #000 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, #000 75%), 
+    linear-gradient(-45deg, transparent 75%, #000 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  animation: checkered-flag 2s ease-in-out infinite;
+}
+
+/* Live status indicators */
+.live-indicator {
+  position: relative;
+}
+
+.live-indicator::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.3) 0%, transparent 70%);
+  border-radius: inherit;
+  animation: racing-pulse 2s ease-in-out infinite;
+}
+
+/* Racing card enhancements */
+.racing-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.racing-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--asd-accent), transparent);
+  transition: left 0.5s ease;
+}
+
+.racing-card:hover::before {
+  left: 100%;
+}
+
+.racing-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Sponsor tier styling */
+.sponsor-primary {
+  border-left: 4px solid var(--asd-primary);
+}
+
+.sponsor-secondary {
+  border-left: 4px solid var(--asd-accent);
+}
+
+.sponsor-associate {
+  border-left: 4px solid var(--asd-success);
+}
+
+/* Performance indicators */
+.position-1 {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #000;
+}
+
+.position-2 {
+  background: linear-gradient(135deg, #C0C0C0 0%, #808080 100%);
+  color: #000;
+}
+
+.position-3 {
+  background: linear-gradient(135deg, #CD7F32 0%, #A0522D 100%);
+  color: #fff;
+}
+
+.position-top5 {
+  background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+  color: #fff;
+}
+
+.position-top10 {
+  background: linear-gradient(135deg, #10B981 0%, #047857 100%);
+  color: #fff;
+}
+
+/* Flag status colors */
+.flag-green {
+  background-color: #10B981;
+  color: white;
+}
+
+.flag-yellow {
+  background-color: #F59E0B;
+  color: #000;
+}
+
+.flag-red {
+  background-color: #EF4444;
+  color: white;
+}
+
+.flag-checkered {
+  background: var(--checkered-pattern);
+  color: white;
+}
+
+/* Custom scrollbar for racing theme */
+.racing-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.racing-scrollbar::-webkit-scrollbar-track {
+  background: var(--asd-background);
+  border-radius: 4px;
+}
+
+.racing-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, var(--asd-primary), var(--asd-accent));
+  border-radius: 4px;
+}
+
+.racing-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, var(--asd-error), var(--asd-primary));
+}
+
+/* ROI status indicators */
+.roi-excellent {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+}
+
+.roi-good {
+  background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+}
+
+.roi-fair {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+}
+
+.roi-poor {
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+}
+
+/* Computer vision detection box */
+.cv-detection-box {
+  border: 2px solid #10B981;
+  background: rgba(16, 185, 129, 0.1);
+  animation: racing-pulse 2s ease-in-out infinite;
+}
+
+/* Social sentiment indicators */
+.sentiment-positive {
+  color: #10B981;
+  background-color: rgba(16, 185, 129, 0.1);
+}
+
+.sentiment-neutral {
+  color: #6B7280;
+  background-color: rgba(107, 114, 128, 0.1);
+}
+
+.sentiment-negative {
+  color: #EF4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Dashboard header styling */
+.dashboard-header {
+  background: linear-gradient(135deg, var(--asd-secondary) 0%, #374151 50%, var(--asd-primary) 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="checkered" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="5" height="5" fill="rgba(255,255,255,0.05)"/><rect x="5" y="5" width="5" height="5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23checkered)"/></svg>');
+  opacity: 0.1;
+}
+
+/* Racing team branding */
+.asd-logo {
+  background: linear-gradient(135deg, var(--asd-primary) 0%, var(--asd-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Responsive racing grid */
+.racing-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+@media (max-width: 768px) {
+  .racing-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* Loading animations for racing theme */
+.racing-loader {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--asd-background);
+  border-top: 4px solid var(--asd-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Success states */
+.success-indicator {
+  background: linear-gradient(135deg, var(--asd-success) 0%, #059669 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.875rem;
+}

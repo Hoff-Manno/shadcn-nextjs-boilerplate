@@ -105,7 +105,20 @@ const config = {
   				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
+  			},
+  			asd: {
+  				primary: '#DC2626',
+  				secondary: '#1F2937',
+  				accent: '#F59E0B',
+  				success: '#10B981',
+  				warning: '#F59E0B',
+  				error: '#EF4444'
   			}
+  		},
+  		backgroundImage: {
+  			'racing-gradient': 'linear-gradient(135deg, #DC2626 0%, #F59E0B 100%)',
+  			'performance-gradient': 'linear-gradient(135deg, #10B981 0%, #F59E0B 100%)',
+  			'carbon-gradient': 'linear-gradient(135deg, #1F2937 0%, #374151 100%)'
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
@@ -128,11 +141,31 @@ const config = {
   				to: {
   					height: '0'
   				}
+  			},
+  			'pulse-red': {
+  				'0%, 100%': {
+  					opacity: '1'
+  				},
+  				'50%': {
+  					opacity: '0.5'
+  				}
+  			},
+  			'racing-pulse': {
+  				'0%, 100%': {
+  					transform: 'scale(1)',
+  					backgroundColor: '#DC2626'
+  				},
+  				'50%': {
+  					transform: 'scale(1.05)',
+  					backgroundColor: '#EF4444'
+  				}
   			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			'pulse-red': 'pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+  			'racing-pulse': 'racing-pulse 1.5s ease-in-out infinite'
   		}
   	}
   },
