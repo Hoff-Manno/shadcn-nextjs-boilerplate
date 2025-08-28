@@ -23,12 +23,16 @@ export async function POST(req: Request) {
   const headersList = await headers();
   const sig = headersList.get('Stripe-Signature') as string;
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  // Soft-disable: if supabase env missing just acknowledge
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return new Response(JSON.stringify({ skipped: true }), { status: 200 });
+  }
   let event: Stripe.Event;
 
   try {
     if (!sig || !webhookSecret) return;
     event = stripe.webhooks.constructEvent(body, sig, webhookSecret);
-  } catch (err) {
+  } catch (err: any) {
     console.log(`❌ Error message: ${err.message}`);
     return new Response(`Webhook Error: ${err.message}`, { status: 400 });
   }

@@ -4,17 +4,28 @@ import { createClient } from '@supabase/supabase-js';
 import Stripe from 'stripe';
 import type { Database } from '@/types/types_db';
 
+// Added soft-disable guard
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabaseAdmin = SUPABASE_URL && SUPABASE_SERVICE_KEY
+  ? createClient<Database>(
+      SUPABASE_URL,
+      SUPABASE_SERVICE_KEY
+    )
+  : null as any;
+
 type Product = Database['public']['Tables']['products']['Row'];
 type Price = Database['public']['Tables']['prices']['Row'];
 
 // Note: supabaseAdmin uses the SERVICE_ROLE_KEY which you must only use in a secure server-side context
 // as it has admin privileges and overwrites RLS policies!
-const supabaseAdmin = createClient<Database>(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.SUPABASE_SERVICE_ROLE_KEY || ''
-);
+// const supabaseAdmin = createClient<Database>(
+//   process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+//   process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+// );
 
 const upsertProductRecord = async (product: Stripe.Product) => {
+  if (!supabaseAdmin) return; // skip when disabled
   const productData: Product = {
     id: product.id,
     active: product.active,
@@ -30,6 +41,7 @@ const upsertProductRecord = async (product: Stripe.Product) => {
 };
 
 const upsertPriceRecord = async (price: Stripe.Price) => {
+  if (!supabaseAdmin) return; // skip when disabled
   const priceData: Price = {
     id: price.id,
     product_id: typeof price.product === 'string' ? price.product : '',
@@ -56,6 +68,7 @@ const createOrRetrieveCustomer = async ({
   email: string;
   uuid: string;
 }) => {
+  if (!supabaseAdmin) return null; // disabled
   const { data, error } = await supabaseAdmin
     .from('customers')
     .select('stripe_customer_id')
@@ -73,7 +86,7 @@ const createOrRetrieveCustomer = async ({
     };
     if (email) customerData.email = email;
     const customer = await stripe.customers.create(customerData);
-    // Now insert the customer ID into our Supabase mapping table.
+    if (!supabaseAdmin) return customer.id;
     const { error: supabaseError } = await supabaseAdmin
       .from('customers')
       .insert([{ id: uuid, stripe_customer_id: customer.id }]);
@@ -91,11 +104,10 @@ const copyBillingDetailsToCustomer = async (
   uuid: string,
   payment_method: Stripe.PaymentMethod
 ) => {
-  //Todo: check this assertion
+  if (!supabaseAdmin) return; // disabled
   const customer = payment_method.customer as string;
   const { name, phone, address } = payment_method.billing_details;
   if (!name || !phone || !address) return;
-  //@ts-ignore
   await stripe.customers.update(customer, { name, phone, address });
   const { error } = await supabaseAdmin
     .from('users')
@@ -112,7 +124,7 @@ const manageSubscriptionStatusChange = async (
   customerId: string,
   createAction = false
 ) => {
-  // Get customer's UUID from mapping table.
+  if (!supabaseAdmin) return; // disabled
   const {
     data: customerData,
     error: noCustomerError
@@ -128,16 +140,13 @@ const manageSubscriptionStatusChange = async (
   const subscription = await stripe.subscriptions.retrieve(subscriptionId, {
     expand: ['default_payment_method']
   });
-  // Upsert the latest status of the subscription object.
   const subscriptionData: Database['public']['Tables']['subscriptions']['Insert'] = {
     id: subscription.id,
     user_id: uuid,
     metadata: subscription.metadata,
     status: subscription.status,
     price_id: subscription.items.data[0].price.id,
-    //TODO check quantity on subscription
-    // @ts-ignore
-    quantity: subscription.quantity,
+    quantity: (subscription as any).quantity,
     cancel_at_period_end: subscription.cancel_at_period_end,
     cancel_at: subscription.cancel_at
       ? toDateTime(subscription.cancel_at).toISOString()
@@ -171,10 +180,7 @@ const manageSubscriptionStatusChange = async (
     `Inserted/updated subscription [${subscription.id}] for user [${uuid}]`
   );
 
-  // For a new subscription copy the billing details to the customer object.
-  // NOTE: This is a costly operation and should happen at the very end.
   if (createAction && subscription.default_payment_method && uuid)
-    //@ts-ignore
     await copyBillingDetailsToCustomer(
       uuid,
       subscription.default_payment_method as Stripe.PaymentMethod
