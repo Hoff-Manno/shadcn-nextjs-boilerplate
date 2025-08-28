@@ -1,14 +1,14 @@
-import { getUser } from '@/utils/supabase/queries';
-import { redirect } from 'next/navigation';
+import SponsorshipOverviewWrapper from '@/components/SponsorshipOverviewWrapper';
+import { getUserDetails, getUser } from '@/utils/supabase/queries';
 import { createClient } from '@/utils/supabase/server';
 
 export default async function Dashboard() {
   const supabase = await createClient();
-  const [user] = await Promise.all([getUser(supabase)]);
+  const [user, userDetails] = await Promise.all([
+    getUser(supabase),
+    getUserDetails(supabase)
+  ]);
 
-  if (!user) {
-    return redirect('/dashboard/signin');
-  } else {
-    redirect('/dashboard/main');
-  }
+  // Show sponsorship overview as the landing page
+  return <SponsorshipOverviewWrapper />;
 }
