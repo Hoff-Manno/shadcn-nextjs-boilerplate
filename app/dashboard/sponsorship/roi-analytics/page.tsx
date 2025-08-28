@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { formatCurrency, formatPercent, formatNumber } from '@/lib/utils';
 import { SponsorshipCharts } from '@/components/sponsorship/SponsorshipCharts';
 import { KPICard } from '@/components/sponsorship/KPICard';
 import { 
@@ -113,7 +114,7 @@ export default function ROIAnalytics() {
       },
       {
         title: 'Cost Per Impression',
-        value: `$${avgCostPerImpression.toFixed(3)}`,
+        value: `$${formatNumber(avgCostPerImpression, 3)}`,
         trend: -5.2,
         icon: 'currency',
         color: 'green',
@@ -133,12 +134,6 @@ export default function ROIAnalytics() {
     ];
     setValueBreakdown(breakdown);
   }, []);
-
-  const formatCurrency = (amount: number) => {
-    if (amount >= 1000000) return `$${(amount / 1000000).toFixed(1)}M`;
-    if (amount >= 1000) return `$${(amount / 1000).toFixed(0)}K`;
-    return `$${amount.toFixed(0)}`;
-  };
 
   const getROIColor = (roi: number) => {
     if (roi >= 300) return 'text-green-600 bg-green-100 dark:bg-green-900 dark:text-green-200';

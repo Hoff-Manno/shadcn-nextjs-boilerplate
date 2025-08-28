@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { formatConfidence, formatNumber } from '@/lib/utils';
 import { CVDetectionOverlay } from '@/components/sponsorship/CVDetectionOverlay';
 import { LogoRecognitionResult } from '@/components/sponsorship/LogoRecognitionResult';
 import { SponsorPlacementHeatmap } from '@/components/sponsorship/SponsorPlacementHeatmap';
@@ -355,7 +356,7 @@ export default function ComputerVisionAnalytics() {
                         detection.confidence >= 0.8 ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
                         'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
                       }`}>
-                        {Math.round(detection.confidence * 100)}%
+                        {formatConfidence(detection.confidence)}
                       </span>
                     </td>
                     <td className="py-3 px-3 text-center text-gray-600 dark:text-gray-400">

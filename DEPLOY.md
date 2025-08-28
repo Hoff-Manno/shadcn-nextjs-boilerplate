@@ -2,6 +2,13 @@
 
 This project is configured to deploy to Vercel in demo mode without requiring any external services like Supabase.
 
+## ✨ Recent Improvements
+
+### Number Formatting
+- **Fixed long decimal places**: All numbers now display with maximum 3 decimal places
+- **Consistent formatting**: Added utility functions for currency, percentages, and scores
+- **Better readability**: Confidence scores, ROI percentages, and financial values are properly formatted
+
 ## Quick Deployment to Vercel
 
 ### Option 1: Deploy via Vercel Dashboard

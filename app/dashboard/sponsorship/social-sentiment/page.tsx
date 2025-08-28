@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { formatNumber, formatPercent } from '@/lib/utils';
 import { SponsorshipCharts } from '@/components/sponsorship/SponsorshipCharts';
 import { KPICard } from '@/components/sponsorship/KPICard';
 import { 
@@ -66,7 +67,7 @@ export default function SocialSentimentAnalytics() {
     const stats = platforms.map(platform => {
       const platformMentions = mentions.filter(m => m.platform === platform);
       const avgSentiment = platformMentions.length > 0 
-        ? platformMentions.reduce((sum, m) => sum + m.sentimentScore, 0) / platformMentions.length
+        ? formatNumber(platformMentions.reduce((sum, m) => sum + m.sentimentScore, 0) / platformMentions.length, 2)
         : 0;
       const totalReach = platformMentions.reduce((sum, m) => sum + m.reach, 0);
       const totalEngagement = platformMentions.reduce((sum, m) => 
@@ -112,7 +113,7 @@ export default function SocialSentimentAnalytics() {
     const totalMentions = mentions.length;
     const positiveMentions = mentions.filter(m => m.sentiment === 'positive').length;
     const negativeMentions = mentions.filter(m => m.sentiment === 'negative').length;
-    const avgSentimentScore = mentions.reduce((sum, m) => sum + m.sentimentScore, 0) / totalMentions;
+    const avgSentimentScore = formatNumber(mentions.reduce((sum, m) => sum + m.sentimentScore, 0) / totalMentions, 2);
     const totalReach = mentions.reduce((sum, m) => sum + m.reach, 0);
     const totalImpressions = mentions.reduce((sum, m) => sum + m.impressions, 0);
 
@@ -362,7 +363,7 @@ export default function SocialSentimentAnalytics() {
               m.mentions.some(mention => mention.toLowerCase().includes(sponsor.name.toLowerCase()))
             );
             const avgSentiment = sponsorMentions.length > 0 
-              ? sponsorMentions.reduce((sum, m) => sum + m.sentimentScore, 0) / sponsorMentions.length
+              ? formatNumber(sponsorMentions.reduce((sum, m) => sum + m.sentimentScore, 0) / sponsorMentions.length, 2)
               : 0;
             const sentimentPercentage = Math.round((avgSentiment + 1) * 50);
             

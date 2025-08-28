@@ -1,6 +1,7 @@
 'use client';
 
 import { PlacementEffectiveness } from '@/types/sponsorship';
+import { formatNumber } from '@/lib/utils';
 
 interface SponsorPlacementHeatmapProps {
   data: PlacementEffectiveness[];
@@ -138,7 +139,7 @@ export const SponsorPlacementHeatmap = ({ data }: SponsorPlacementHeatmapProps) 
                   {Math.round(placement.averageExposure)}s
                 </td>
                 <td className="py-3 px-3 text-center text-gray-600 dark:text-gray-400">
-                  ${placement.costEfficiency.toFixed(2)}/min
+                  ${formatNumber(placement.costEfficiency, 2)}/min
                 </td>
               </tr>
             ))}

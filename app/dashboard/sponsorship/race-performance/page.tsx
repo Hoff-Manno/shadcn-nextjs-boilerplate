@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { formatNumber, formatPercent } from '@/lib/utils';
 import { KPICard } from '@/components/sponsorship/KPICard';
 import { 
   generateMockRacePerformance,
@@ -79,7 +80,7 @@ export default function RacePerformanceAnalytics() {
       },
       {
         title: 'Average Finish',
-        value: avgFinish.toFixed(1),
+        value: formatNumber(avgFinish, 1),
         trend: avgFinish < 10 ? 15.3 : -8.2,
         icon: 'trending',
         color: avgFinish < 10 ? 'green' : 'red',
@@ -161,19 +162,19 @@ export default function RacePerformanceAnalytics() {
             <div className="flex items-center justify-between">
               <span className="text-gray-600 dark:text-gray-400">Win Percentage</span>
               <span className="font-semibold text-green-600">
-                {((seasonStats.wins / seasonStats.totalRaces) * 100).toFixed(1)}%
+                {formatPercent((seasonStats.wins / seasonStats.totalRaces) * 100, 1)}
               </span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-gray-600 dark:text-gray-400">Top 5 Rate</span>
               <span className="font-semibold text-blue-600">
-                {((seasonStats.topFives / seasonStats.totalRaces) * 100).toFixed(1)}%
+                {formatPercent((seasonStats.topFives / seasonStats.totalRaces) * 100, 1)}
               </span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-gray-600 dark:text-gray-400">Average Speed</span>
               <span className="font-semibold text-gray-900 dark:text-white">
-                {seasonStats.avgSpeed?.toFixed(1)} mph
+                {formatNumber(seasonStats.avgSpeed, 1)} mph
               </span>
             </div>
           </div>
@@ -300,7 +301,7 @@ export default function RacePerformanceAnalytics() {
                       {race.lapsLed}
                     </td>
                     <td className="py-4 px-4 text-center text-gray-600 dark:text-gray-400">
-                      {race.averageSpeed.toFixed(1)} mph
+                      {formatNumber(race.averageSpeed, 1)} mph
                     </td>
                     <td className="py-4 px-4 text-center text-green-600 font-semibold">
                       ${(race.mediaValue / 1000).toFixed(0)}K

@@ -10,6 +10,7 @@ import {
   PlacementEffectiveness,
   LiveRaceStatus
 } from '@/types/sponsorship';
+import { formatNumber } from './utils';
 
 // Mock sponsor data
 export const mockSponsors: Sponsor[] = [
@@ -149,14 +150,14 @@ export const generateMockExposureData = (): SponsorshipExposure[] => {
             width: Math.random() * 20 + 5,
             height: Math.random() * 15 + 5
           },
-          confidenceScore: Math.random() * 0.3 + 0.7, // 0.7-1.0
+          confidenceScore: formatNumber(Math.random() * 0.3 + 0.7, 3), // 0.7-1.0
           platformDetails: {
             channel: ['FOX Sports', 'ESPN', 'NBC Sports', 'CBS Sports'][Math.floor(Math.random() * 4)],
             viewership: Math.floor(Math.random() * 500000) + 100000,
             demographics: {
-              age_18_34: Math.random() * 40 + 10,
-              age_35_54: Math.random() * 40 + 20,
-              age_55_plus: Math.random() * 30 + 15
+              age_18_34: formatNumber(Math.random() * 40 + 10, 1),
+              age_35_54: formatNumber(Math.random() * 40 + 20, 1),
+              age_55_plus: formatNumber(Math.random() * 30 + 15, 1)
             }
           }
         });
@@ -216,10 +217,10 @@ export const generateMockSocialData = (): SocialMention[] => {
         },
         sentiment,
         sentimentScore: sentiment === 'positive' ? 
-          Math.random() * 0.6 + 0.4 : // 0.4 to 1.0
+          formatNumber(Math.random() * 0.6 + 0.4, 3) : // 0.4 to 1.0
           sentiment === 'negative' ? 
-          Math.random() * 0.6 - 1.0 : // -1.0 to -0.4
-          Math.random() * 0.8 - 0.4, // -0.4 to 0.4
+          formatNumber(Math.random() * 0.6 - 1.0, 3) : // -1.0 to -0.4
+          formatNumber(Math.random() * 0.8 - 0.4, 3), // -0.4 to 0.4
         mentions: [sponsor.name, 'ASD Motorsports'],
         reach: Math.floor(Math.random() * 100000) + 10000,
         impressions: Math.floor(Math.random() * 500000) + 50000,
@@ -250,11 +251,11 @@ export const generateMockRacePerformance = (): RacePerformance[] => {
     const laps = Math.floor(Math.random() * 100) + 100;
     
     // Generate lap times (simulate realistic lap times)
-    const baseLapTime = 18.5 + Math.random() * 2; // 18.5-20.5 seconds
+    const baseLapTime = formatNumber(18.5 + Math.random() * 2, 2); // 18.5-20.5 seconds
     const lapTimes: number[] = [];
     for (let lap = 0; lap < laps; lap++) {
-      const variation = (Math.random() - 0.5) * 1.0; // ±0.5 second variation
-      lapTimes.push(baseLapTime + variation);
+      const variation = formatNumber((Math.random() - 0.5) * 1.0, 2); // ±0.5 second variation
+      lapTimes.push(formatNumber(baseLapTime + variation, 2));
     }
     
     // Calculate sponsor exposure times
@@ -278,15 +279,15 @@ export const generateMockRacePerformance = (): RacePerformance[] => {
       startingPosition: startPos,
       finishingPosition: finishPos,
       lapTimes,
-      averageSpeed: 85 + Math.random() * 10, // 85-95 mph
-      topSpeed: 95 + Math.random() * 8, // 95-103 mph
+      averageSpeed: formatNumber(85 + Math.random() * 10, 1), // 85-95 mph
+      topSpeed: formatNumber(95 + Math.random() * 8, 1), // 95-103 mph
       incidents: Math.floor(Math.random() * 3), // 0-2 incidents
       lapsLed: finishPos <= 5 ? Math.floor(Math.random() * 20) : 0,
       mediaValue: (25 - finishPos) * 5000 + Math.random() * 10000, // Better position = more value
       sponsorExposureTime,
       tvCoverage: {
-        liveMinutes: (25 - finishPos) * 2 + Math.random() * 10,
-        highlightMinutes: finishPos <= 10 ? Math.random() * 5 + 2 : Math.random() * 2,
+        liveMinutes: formatNumber((25 - finishPos) * 2 + Math.random() * 10, 1),
+        highlightMinutes: formatNumber(finishPos <= 10 ? Math.random() * 5 + 2 : Math.random() * 2, 1),
         mentions: finishPos <= 5 ? Math.floor(Math.random() * 10) + 5 : Math.floor(Math.random() * 5)
       }
     });
@@ -302,12 +303,12 @@ export const generateMockROIMetrics = (): ROIMetrics[] => {
   mockSponsors.forEach(sponsor => {
     // Calculate realistic ROI based on investment tier
     const baseROI = sponsor.tier === 'primary' ? 250 : sponsor.tier === 'secondary' ? 180 : 120;
-    const roiVariation = Math.random() * 100 - 50; // ±50%
-    const actualROI = baseROI + roiVariation;
+    const roiVariation = formatNumber(Math.random() * 100 - 50, 1); // ±50%
+    const actualROI = formatNumber(baseROI + roiVariation, 1);
     
-    const exposureValue = sponsor.investment * (actualROI / 100) * 0.6;
-    const socialMediaValue = sponsor.investment * (actualROI / 100) * 0.25;
-    const tvBroadcastValue = sponsor.investment * (actualROI / 100) * 0.15;
+    const exposureValue = formatNumber(sponsor.investment * (actualROI / 100) * 0.6, 2);
+    const socialMediaValue = formatNumber(sponsor.investment * (actualROI / 100) * 0.25, 2);
+    const tvBroadcastValue = formatNumber(sponsor.investment * (actualROI / 100) * 0.15, 2);
     
     roiMetrics.push({
       sponsorId: sponsor.id,
@@ -356,7 +357,7 @@ export const generateMockComputerVisionData = (): ComputerVisionDetection[] => {
         id: `detection-${sponsor.id}-${i}`,
         timestamp,
         sponsorId: sponsor.id,
-        confidence: Math.random() * 0.3 + 0.7, // 0.7-1.0
+        confidence: formatNumber(Math.random() * 0.3 + 0.7, 3), // 0.7-1.0
         boundingBox: {
           x: Math.random() * 60 + 20,
           y: Math.random() * 60 + 20,

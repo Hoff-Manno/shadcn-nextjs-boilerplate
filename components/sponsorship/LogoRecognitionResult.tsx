@@ -1,6 +1,7 @@
 'use client';
 
 import { Sponsor } from '@/types/sponsorship';
+import { formatConfidence } from '@/lib/utils';
 import { HiOutlineEye, HiOutlineClock } from 'react-icons/hi2';
 
 interface LogoRecognitionResultProps {
@@ -73,7 +74,7 @@ export const LogoRecognitionResult = ({
       {/* Detection Metrics */}
       <div className="text-right space-y-2">
         <div className={`inline-flex items-center px-2 py-1 rounded-full text-sm font-medium ${getConfidenceColor(confidence)}`}>
-          {Math.round(confidence * 100)}% confidence
+          {formatConfidence(confidence)} confidence
         </div>
         <div className="text-xs text-gray-600 dark:text-gray-400">
           Tier: <span className="font-medium capitalize">{sponsor.tier}</span>
