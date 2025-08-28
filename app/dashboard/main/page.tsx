@@ -3,8 +3,8 @@ import { redirect } from 'next/navigation';
 import { getUserDetails, getUser } from '@/utils/supabase/queries';
 import { createClient } from '@/utils/supabase/server';
 
-export default async function Account() {
-  const supabase = createClient();
+export default async function DashboardPage() {
+  const supabase = await createClient();
   const [user, userDetails] = await Promise.all([
     getUser(supabase),
     getUserDetails(supabase)

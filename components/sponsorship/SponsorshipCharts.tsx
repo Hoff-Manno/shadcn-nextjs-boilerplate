@@ -129,11 +129,11 @@ export const SponsorshipCharts = ({
     chart: {
       type: 'bar',
       height: 350,
-      horizontal: true,
       toolbar: { show: false }
     },
     plotOptions: {
       bar: {
+        horizontal: true,
         borderRadius: 4,
         dataLabels: { 
           position: 'top' 
