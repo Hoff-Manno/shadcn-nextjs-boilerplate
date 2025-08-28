@@ -1,0 +1,11 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "env": {
+    "NEXT_PUBLIC_SUPABASE_URL": "https://xyzcompany-demo.supabase.co",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "demo-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzEyNzU2MjIsImV4cCI6Mjg0NzY0ODAyMn0.TYGtRaKCW3w8xOb7EFY0KZV1FKz1I1QJ7J3y8XHZTV8",
+    "SUPABASE_SERVICE_ROLE_KEY": "demo-service-role-key"
+  }
+}
