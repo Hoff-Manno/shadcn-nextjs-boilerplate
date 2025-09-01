@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { ApexOptions } from 'apexcharts';
+import { useTheme } from 'next-themes';
 
 // Dynamically import ApexCharts to avoid SSR issues
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
@@ -21,6 +22,7 @@ export const SponsorshipCharts = ({
   type 
 }: SponsorshipChartsProps) => {
   const [isClient, setIsClient] = useState(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     setIsClient(true);
@@ -79,7 +81,7 @@ export const SponsorshipCharts = ({
       borderColor: '#E5E7EB'
     },
     tooltip: {
-      theme: 'light'
+      theme: theme === 'dark' ? 'dark' : 'light'
     }
   };
 
@@ -121,6 +123,9 @@ export const SponsorshipCharts = ({
       labels: {
         colors: '#6B7280'
       }
+    },
+    tooltip: {
+      theme: theme === 'dark' ? 'dark' : 'light'
     }
   };
 
@@ -171,7 +176,7 @@ export const SponsorshipCharts = ({
       borderColor: '#E5E7EB'
     },
     tooltip: {
-      theme: 'light'
+      theme: theme === 'dark' ? 'dark' : 'light'
     }
   };
 
@@ -220,6 +225,9 @@ export const SponsorshipCharts = ({
     },
     grid: {
       borderColor: '#E5E7EB'
+    },
+    tooltip: {
+      theme: theme === 'dark' ? 'dark' : 'light'
     }
   };
 

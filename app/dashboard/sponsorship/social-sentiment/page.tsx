@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { formatNumber, formatPercent } from '@/lib/utils';
 import { SponsorshipCharts } from '@/components/sponsorship/SponsorshipCharts';
 import { KPICard } from '@/components/sponsorship/KPICard';
+import { SponsorshipNavigation } from '@/components/sponsorship/SponsorshipNavigation';
 import { 
   generateMockSocialData,
   mockSponsors,
@@ -141,14 +142,14 @@ export default function SocialSentimentAnalytics() {
       },
       {
         title: 'Social Reach',
-        value: `${(totalReach / 1000000).toFixed(1)}M`,
+        value: `${formatNumber(totalReach / 1000000, 1)}M`,
         trend: 15.8,
         icon: 'eye',
         color: 'purple'
       },
       {
         title: 'Total Impressions',
-        value: `${(totalImpressions / 1000000).toFixed(1)}M`,
+        value: `${formatNumber(totalImpressions / 1000000, 1)}M`,
         trend: 22.1,
         icon: 'currency',
         color: 'yellow'
@@ -182,13 +183,18 @@ export default function SocialSentimentAnalytics() {
   return (
     <div className="flex flex-col gap-6 p-6">
       {/* Header */}
-      <div className="flex flex-col space-y-2">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          Social Media Sentiment Analysis
-        </h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          Real-time monitoring of social media mentions, sentiment trends, and brand engagement across platforms
-        </p>
+      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+        <div className="flex flex-col space-y-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Social Media Sentiment Analysis
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400">
+            Real-time monitoring of social media mentions, sentiment trends, and brand engagement across platforms
+          </p>
+        </div>
+        
+        {/* Navigation */}
+        <SponsorshipNavigation />
       </div>
 
       {/* Sentiment KPIs */}

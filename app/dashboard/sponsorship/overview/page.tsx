@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { KPICard } from '@/components/sponsorship/KPICard';
 import { LiveStatusIndicator } from '@/components/sponsorship/LiveStatusIndicator';
 import { SponsorshipCharts } from '@/components/sponsorship/SponsorshipCharts';
+import { SponsorshipNavigation } from '@/components/sponsorship/SponsorshipNavigation';
+import { formatNumber, formatPercent, formatCurrency } from '@/lib/utils';
 import { 
   generateDashboardKPIs,
   generateLiveRaceStatus,
@@ -98,47 +100,7 @@ export default function SponsorshipOverview() {
         </div>
         
         {/* Navigation Buttons */}
-        <div className="flex flex-wrap gap-3">
-          <Link href="/dashboard/sponsorship/roi-analytics">
-            <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm transition-all duration-200 cursor-pointer group">
-              <HiOutlineCurrencyDollar className="h-5 w-5 text-green-600" />
-              <span className="text-sm font-medium text-gray-900 dark:text-white">ROI Analytics</span>
-              <HiOutlineArrowRight className="h-4 w-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors" />
-            </div>
-          </Link>
-          
-          <Link href="/dashboard/sponsorship/social-sentiment">
-            <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm transition-all duration-200 cursor-pointer group">
-              <HiOutlineHeart className="h-5 w-5 text-pink-600" />
-              <span className="text-sm font-medium text-gray-900 dark:text-white">Social Sentiment</span>
-              <HiOutlineArrowRight className="h-4 w-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors" />
-            </div>
-          </Link>
-          
-          <Link href="/dashboard/sponsorship/computer-vision">
-            <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm transition-all duration-200 cursor-pointer group">
-              <HiOutlineCpuChip className="h-5 w-5 text-blue-600" />
-              <span className="text-sm font-medium text-gray-900 dark:text-white">Computer Vision</span>
-              <HiOutlineArrowRight className="h-4 w-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors" />
-            </div>
-          </Link>
-          
-          <Link href="/dashboard/sponsorship/race-performance">
-            <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm transition-all duration-200 cursor-pointer group">
-              <HiOutlineTrophy className="h-5 w-5 text-yellow-600" />
-              <span className="text-sm font-medium text-gray-900 dark:text-white">Race Performance</span>
-              <HiOutlineArrowRight className="h-4 w-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors" />
-            </div>
-          </Link>
-          
-          <Link href="/dashboard/sponsorship/reports">
-            <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm transition-all duration-200 cursor-pointer group">
-              <HiOutlineDocumentText className="h-5 w-5 text-purple-600" />
-              <span className="text-sm font-medium text-gray-900 dark:text-white">Reports</span>
-              <HiOutlineArrowRight className="h-4 w-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors" />
-            </div>
-          </Link>
-        </div>
+        <SponsorshipNavigation />
       </div>
 
       {/* Live Race Status */}
@@ -286,7 +248,7 @@ export default function SponsorshipOverview() {
         </div>
         <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg border border-gray-200 dark:border-gray-700 text-center">
           <div className="text-2xl font-bold text-green-600 mb-1">
-            ${(mockSponsors.reduce((sum, s) => sum + s.investment, 0) / 1000).toFixed(0)}K
+            ${formatNumber(mockSponsors.reduce((sum, s) => sum + s.investment, 0) / 1000, 0)}K
           </div>
           <div className="text-sm text-gray-600 dark:text-gray-400">
             Total Investment

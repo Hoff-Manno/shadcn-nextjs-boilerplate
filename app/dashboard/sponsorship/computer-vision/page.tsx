@@ -5,6 +5,7 @@ import { formatConfidence, formatNumber } from '@/lib/utils';
 import { CVDetectionOverlay } from '@/components/sponsorship/CVDetectionOverlay';
 import { LogoRecognitionResult } from '@/components/sponsorship/LogoRecognitionResult';
 import { SponsorPlacementHeatmap } from '@/components/sponsorship/SponsorPlacementHeatmap';
+import { SponsorshipNavigation } from '@/components/sponsorship/SponsorshipNavigation';
 import { 
   generateMockComputerVisionData,
   mockSponsors,
@@ -142,13 +143,18 @@ export default function ComputerVisionAnalytics() {
   return (
     <div className="flex flex-col gap-6 p-6">
       {/* Header */}
-      <div className="flex flex-col space-y-2">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          Computer Vision Analytics
-        </h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          Real-time sponsor logo detection and exposure tracking using AI-powered computer vision
-        </p>
+      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+        <div className="flex flex-col space-y-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Computer Vision Analytics
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400">
+            Real-time sponsor logo detection and exposure tracking using AI-powered computer vision
+          </p>
+        </div>
+        
+        {/* Navigation */}
+        <SponsorshipNavigation />
       </div>
 
       {/* Detection Statistics */}

@@ -66,7 +66,7 @@ export const SponsorPlacementHeatmap = ({ data }: SponsorPlacementHeatmapProps) 
               title={`${placement.sponsor}: ${placement.effectiveness}% effective`}
             >
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="bg-white bg-opacity-90 px-2 py-1 rounded text-xs font-bold text-gray-900">
+                <div className="bg-white dark:bg-gray-800 bg-opacity-90 dark:bg-opacity-90 px-2 py-1 rounded text-xs font-bold text-gray-900 dark:text-white border border-gray-200 dark:border-gray-600">
                   {placement.effectiveness}%
                 </div>
               </div>

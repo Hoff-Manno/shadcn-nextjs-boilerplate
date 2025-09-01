@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { formatNumber, formatPercent } from '@/lib/utils';
 import { KPICard } from '@/components/sponsorship/KPICard';
+import { SponsorshipNavigation } from '@/components/sponsorship/SponsorshipNavigation';
 import { 
   generateMockRacePerformance,
   mockSponsors
@@ -73,7 +74,7 @@ export default function RacePerformanceAnalytics() {
       {
         title: 'Top 5 Finishes',
         value: `${topFives}/${totalRaces}`,
-        trend: (topFives / totalRaces) * 100,
+        trend: formatNumber((topFives / totalRaces) * 100, 1),
         icon: 'trending',
         color: 'blue',
         description: 'Consistency metric'
@@ -96,7 +97,7 @@ export default function RacePerformanceAnalytics() {
       },
       {
         title: 'Media Value',
-        value: `$${(totalMediaValue / 1000).toFixed(0)}K`,
+        value: `$${formatNumber(totalMediaValue / 1000, 0)}K`,
         trend: 28.4,
         icon: 'currency',
         color: 'green',
@@ -123,13 +124,18 @@ export default function RacePerformanceAnalytics() {
   return (
     <div className="flex flex-col gap-6 p-6">
       {/* Header */}
-      <div className="flex flex-col space-y-2">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          Race Performance Analytics
-        </h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          Comprehensive analysis of race results, performance trends, and sponsor exposure correlation
-        </p>
+      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+        <div className="flex flex-col space-y-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Race Performance Analytics
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400">
+            Comprehensive analysis of race results, performance trends, and sponsor exposure correlation
+          </p>
+        </div>
+        
+        {/* Navigation */}
+        <SponsorshipNavigation />
       </div>
 
       {/* Performance KPIs */}
@@ -304,7 +310,7 @@ export default function RacePerformanceAnalytics() {
                       {formatNumber(race.averageSpeed, 1)} mph
                     </td>
                     <td className="py-4 px-4 text-center text-green-600 font-semibold">
-                      ${(race.mediaValue / 1000).toFixed(0)}K
+                      ${formatNumber(race.mediaValue / 1000, 0)}K
                     </td>
                     <td className="py-4 px-4 text-center text-blue-600 font-semibold">
                       {Math.round(totalExposure / 60)} min
@@ -371,7 +377,7 @@ export default function RacePerformanceAnalytics() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                   <div className="text-2xl font-bold text-blue-600 mb-1">
-                    {seasonStats.avgFinish?.toFixed(1)}
+                    {formatNumber(seasonStats.avgFinish, 1)}
                   </div>
                   <div className="text-xs text-gray-600 dark:text-gray-400">
                     Average Finish
@@ -379,7 +385,7 @@ export default function RacePerformanceAnalytics() {
                 </div>
                 <div className="text-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                   <div className="text-2xl font-bold text-green-600 mb-1">
-                    {((seasonStats.topFives / seasonStats.totalRaces) * 100).toFixed(0)}%
+                    {formatPercent((seasonStats.topFives / seasonStats.totalRaces) * 100, 0)}
                   </div>
                   <div className="text-xs text-gray-600 dark:text-gray-400">
                     Top 5 Rate
@@ -403,7 +409,7 @@ export default function RacePerformanceAnalytics() {
                 </div>
                 <div className="flex items-center space-x-2 text-purple-600">
                   <HiOutlineEye className="h-4 w-4" />
-                  <span>Generated ${(seasonStats.totalMediaValue / 1000).toFixed(0)}K in media value</span>
+                  <span>Generated ${formatNumber(seasonStats.totalMediaValue / 1000, 0)}K in media value</span>
                 </div>
               </div>
             </div>

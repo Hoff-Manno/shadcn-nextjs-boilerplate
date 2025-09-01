@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { formatCurrency, formatPercent, formatNumber } from '@/lib/utils';
 import { SponsorshipCharts } from '@/components/sponsorship/SponsorshipCharts';
 import { KPICard } from '@/components/sponsorship/KPICard';
+import { SponsorshipNavigation } from '@/components/sponsorship/SponsorshipNavigation';
 import { 
   generateMockROIMetrics,
   mockSponsors,
@@ -74,7 +75,7 @@ export default function ROIAnalytics() {
     setRoiKPIs([
       {
         title: 'Total Investment',
-        value: `$${(totalInvestment / 1000).toFixed(0)}K`,
+        value: `$${formatNumber(totalInvestment / 1000, 0)}K`,
         trend: 8.5,
         icon: 'currency',
         color: 'blue',
@@ -82,7 +83,7 @@ export default function ROIAnalytics() {
       },
       {
         title: 'Generated Value',
-        value: `$${(totalGeneratedValue / 1000).toFixed(0)}K`,
+        value: `$${formatNumber(totalGeneratedValue / 1000, 0)}K`,
         trend: 18.3,
         icon: 'trending',
         color: 'green',
@@ -90,7 +91,7 @@ export default function ROIAnalytics() {
       },
       {
         title: 'Average ROI',
-        value: `${averageROI.toFixed(0)}%`,
+        value: `${formatPercent(averageROI)}`,
         trend: 12.7,
         icon: 'currency',
         color: 'green',
@@ -98,7 +99,7 @@ export default function ROIAnalytics() {
       },
       {
         title: 'Total Impressions',
-        value: `${(totalImpressions / 1000000).toFixed(1)}M`,
+        value: `${formatNumber(totalImpressions / 1000000, 1)}M`,
         trend: 22.1,
         icon: 'eye',
         color: 'purple',
@@ -106,7 +107,7 @@ export default function ROIAnalytics() {
       },
       {
         title: 'Total Reach',
-        value: `${(totalReach / 1000000).toFixed(1)}M`,
+        value: `${formatNumber(totalReach / 1000000, 1)}M`,
         trend: 15.6,
         icon: 'eye',
         color: 'blue',
@@ -152,13 +153,18 @@ export default function ROIAnalytics() {
   return (
     <div className="flex flex-col gap-6 p-6">
       {/* Header */}
-      <div className="flex flex-col space-y-2">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          ROI Analytics Dashboard
-        </h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          Comprehensive return on investment analysis for all sponsorship partnerships
-        </p>
+      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+        <div className="flex flex-col space-y-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            ROI Analytics Dashboard
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400">
+            Comprehensive return on investment analysis for all sponsorship partnerships
+          </p>
+        </div>
+        
+        {/* Navigation */}
+        <SponsorshipNavigation />
       </div>
 
       {/* ROI KPIs */}
@@ -214,7 +220,7 @@ export default function ROIAnalytics() {
                       {formatCurrency(comparison.metrics.totalGeneratedValue)}
                     </div>
                     <div className="text-xs text-gray-500">
-                      {efficiency.toFixed(0)}% efficiency
+                      {formatPercent(efficiency)} efficiency
                     </div>
                   </div>
                 </div>
@@ -293,10 +299,10 @@ export default function ROIAnalytics() {
                       </span>
                     </td>
                     <td className="py-4 px-4 text-center text-gray-600 dark:text-gray-400">
-                      ${comparison.metrics.costPerImpression.toFixed(3)}
+                      ${formatNumber(comparison.metrics.costPerImpression, 3)}
                     </td>
                     <td className="py-4 px-4 text-center text-gray-600 dark:text-gray-400">
-                      {(comparison.metrics.impressions / 1000).toFixed(0)}K
+                      {formatNumber(comparison.metrics.impressions / 1000, 0)}K
                     </td>
                     <td className="py-4 px-4 text-center">
                       <div className={`flex items-center justify-center space-x-1 ${isPositiveTrend ? 'text-green-600' : 'text-red-600'}`}>
@@ -306,7 +312,7 @@ export default function ROIAnalytics() {
                           <HiOutlineArrowDownRight className="h-4 w-4" />
                         )}
                         <span className="text-sm font-medium">
-                          {Math.abs(roiChange).toFixed(1)}%
+                          {formatNumber(Math.abs(roiChange), 1)}%
                         </span>
                       </div>
                     </td>
@@ -380,19 +386,19 @@ export default function ROIAnalytics() {
                   <div>
                     <div className="text-sm text-gray-600 dark:text-gray-400">Before</div>
                     <div className="text-lg font-bold text-gray-900 dark:text-white">
-                      {comparison.metrics.brandAwareness.before.toFixed(1)}%
+                      {formatNumber(comparison.metrics.brandAwareness.before, 1)}%
                     </div>
                   </div>
                   <div>
                     <div className="text-sm text-gray-600 dark:text-gray-400">After</div>
                     <div className="text-lg font-bold text-green-600">
-                      {comparison.metrics.brandAwareness.after.toFixed(1)}%
+                      {formatNumber(comparison.metrics.brandAwareness.after, 1)}%
                     </div>
                   </div>
                   <div>
                     <div className="text-sm text-gray-600 dark:text-gray-400">Lift</div>
                     <div className="text-lg font-bold text-blue-600">
-                      +{comparison.metrics.brandAwareness.lift.toFixed(1)}%
+                      +{formatNumber(comparison.metrics.brandAwareness.lift, 1)}%
                     </div>
                   </div>
                 </div>

@@ -7,6 +7,7 @@ import {
   generateMockSocialData,
   generateMockRacePerformance
 } from '@/lib/mockData';
+import { SponsorshipNavigation } from '@/components/sponsorship/SponsorshipNavigation';
 import { ExportableReport } from '@/types/sponsorship';
 import { 
   HiArrowDownTray,
@@ -184,13 +185,18 @@ export default function SponsorReports() {
   return (
     <div className="flex flex-col gap-6 p-6">
       {/* Header */}
-      <div className="flex flex-col space-y-2">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          Sponsor Reports & Analytics
-        </h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          Generate comprehensive reports for sponsors with exportable data and insights
-        </p>
+      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+        <div className="flex flex-col space-y-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Sponsor Reports & Analytics
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400">
+            Generate comprehensive reports for sponsors with exportable data and insights
+          </p>
+        </div>
+        
+        {/* Navigation */}
+        <SponsorshipNavigation />
       </div>
 
       {/* Report Statistics */}
