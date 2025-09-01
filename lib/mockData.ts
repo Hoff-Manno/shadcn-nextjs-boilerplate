@@ -443,7 +443,7 @@ export const generateLiveRaceStatus = (): LiveRaceStatus => {
     totalLaps: 200,
     position: Math.floor(Math.random() * 5) + 1, // Top 5 position
     gapToLeader: Math.random() > 0.5 ? 'LEADER' : `+${formatNumber(Math.random() * 2, 2)}s`,
-    lastLapTime: `${18 + Math.random() * 2}.${Math.floor(Math.random() * 900) + 100}`,
+    lastLapTime: `${formatNumber(18 + Math.random() * 2, 3)}`,
     estimatedTimeRemaining: `${Math.floor(Math.random() * 60) + 15}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`,
     flagStatus: (['green', 'yellow', 'green', 'green'] as const)[Math.floor(Math.random() * 4)], // Bias toward green
     weatherConditions: {
