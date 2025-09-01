@@ -70,8 +70,8 @@ export default function RootLayout({
         <link rel="canonical" href="https://your-website.com" />
         <link rel="icon" href="/img/favicon.ico" />
       </head>
-      <body id={'root'} className="loading bg-white">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <body id={'root'} className="loading bg-white dark:bg-gray-900">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <SupabaseProvider>
             <main id="skip">{children}</main>
           </SupabaseProvider>

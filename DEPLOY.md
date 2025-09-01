@@ -9,6 +9,11 @@ This project is configured to deploy to Vercel in demo mode without requiring an
 - **Consistent formatting**: Added utility functions for currency, percentages, and scores
 - **Better readability**: Confidence scores, ROI percentages, and financial values are properly formatted
 
+### Dark Mode
+- **Default theme**: Set to dark mode by default for better user experience
+- **Theme toggle**: Users can still switch between light and dark modes using the toggle in the navbar
+- **System preference**: Respects user's system theme preference when enabled
+
 ## Quick Deployment to Vercel
 
 ### Option 1: Deploy via Vercel Dashboard
